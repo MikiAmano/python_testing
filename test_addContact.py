@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
 import unittest
-from contact import Contact
+from contacts import Contact
 
 
 class TestAddContact(unittest.TestCase):
@@ -24,18 +24,18 @@ class TestAddContact(unittest.TestCase):
     def open_new_contact_page(self, wd):
         wd.find_element_by_link_text("add new").click()
 
-    def create_contact(self, wd, group):
+    def create_contact(self, wd, contacts):
         # init contact creation
         wd.find_element_by_name("firstname").click()
         # fill contact form
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
+        wd.find_element_by_name("firstname").send_keys(contacts.firstname)
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        wd.find_element_by_name("lastname").send_keys(contacts.lastname)
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(contact.phone)
+        wd.find_element_by_name("home").send_keys(contacts.phone)
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
