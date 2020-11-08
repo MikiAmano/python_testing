@@ -11,7 +11,8 @@ class ContactHelper:
 
     def open_contacts_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("searchstring")) > 0):
+            wd.find_element_by_link_text("home").click()
 
     def select_first_contact(self):
         wd = self.app.wd
