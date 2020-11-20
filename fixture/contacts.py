@@ -1,4 +1,4 @@
-
+from model.contacts import Contact
 
 class ContactHelper:
 
@@ -38,6 +38,7 @@ class ContactHelper:
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.return_to_home_page()
+        wd.implicitly_wait(5)
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -46,6 +47,9 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_css_selector("[value='Delete']").click()
         wd.switch_to_alert().accept()
+        wd.implicitly_wait(5)
+        wd.find_element_by_css_selector("div.msgbox")
+        wd.implicitly_wait(5)
 
     def modify_first_contact(self, new_contact_date):
         wd = self.app.wd
@@ -66,3 +70,14 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.open_contacts_page()
+        contacts = []
+        for element in wd.find_elements_by_css_selector("[name='entry']"):
+            family_name = element.find_element_by_css_selector("td:nth-child(2)").text
+            name = element.find_element_by_css_selector("td:nth-child(3)").text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(id=id, firstname=name, lastname=family_name))
+        return contacts
