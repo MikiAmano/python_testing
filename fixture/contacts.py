@@ -73,6 +73,7 @@ class ContactHelper:
         # submit modification
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
+        wd.implicitly_wait(5)
         self.contact_cache = None
 
     def return_to_home_page(self):
