@@ -18,6 +18,10 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
     def change_fill_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
@@ -42,9 +46,12 @@ class ContactHelper:
         self.contact_cache = None
 
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.open_contacts_page()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         # submit deletion
         wd.find_element_by_css_selector("[value='Delete']").click()
         wd.switch_to_alert().accept()
@@ -53,11 +60,13 @@ class ContactHelper:
         wd.implicitly_wait(5)
         self.contact_cache = None
 
+    def modify_first_contact(self):
+        self.modify_contact_by_index(0)
 
-    def modify_first_contact(self, new_contact_date):
+    def modify_contact_by_index(self, index, new_contact_date):
         wd = self.app.wd
         self.open_contacts_page()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         # open modification form
         wd.find_element_by_css_selector("[title='Edit']").click()
         self.fill_contact_form(new_contact_date)
