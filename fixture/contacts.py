@@ -107,10 +107,9 @@ class ContactHelper:
                 family_name = element.find_element_by_css_selector("td:nth-child(2)").text
                 name = element.find_element_by_css_selector("td:nth-child(3)").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = element.find_element_by_css_selector("td:nth-child(6)").text.splitlines()
+                all_phones = element.find_element_by_css_selector("td:nth-child(6)").text
                 self.contact_cache.append(Contact(id=id, firstname=name, lastname=family_name,
-                                                  homephone=all_phones[0], mobilephone=all_phones[1],
-                                                  workphone=all_phones[2]))
+                                                  all_phones_frome_home_page=all_phones))
 
         return list(self.contact_cache)
         wd.implicitly_wait(5)
