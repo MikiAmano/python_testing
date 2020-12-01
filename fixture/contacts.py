@@ -108,8 +108,11 @@ class ContactHelper:
                 name = element.find_element_by_css_selector("td:nth-child(3)").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 all_phones = element.find_element_by_css_selector("td:nth-child(6)").text
+                address = element.find_element_by_css_selector("td:nth-child(4)").text
+                all_mail = element.find_element_by_css_selector("td:nth-child(5)").text
                 self.contact_cache.append(Contact(id=id, firstname=name, lastname=family_name,
-                                                  all_phones_frome_home_page=all_phones))
+                                                  all_phones_frome_home_page=all_phones, address=address,
+                                                  all_mail=all_mail))
 
         return list(self.contact_cache)
         wd.implicitly_wait(5)
@@ -123,8 +126,14 @@ class ContactHelper:
         homephone = wd.find_element_by_name("home").get_attribute("value")
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        address = wd.find_element_by_name("address").text
+        mail1 = wd.find_element_by_name("email").get_attribute("value")
+        mail2 = wd.find_element_by_name("email2").get_attribute("value")
+        mail3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(id=id, firstname=firstname, lastname=lastname, homephone=homephone,
-                       workphone=workphone, mobilephone=mobilephone)
+                       workphone=workphone, mobilephone=mobilephone, secondaryphone=secondaryphone,
+                       address=address, mail1=mail1, mail2=mail2, mail3=mail3)
 
     def open_contact_view_page_by_index(self, index):
         wd = self.app.wd
