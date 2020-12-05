@@ -82,9 +82,12 @@ class ContactHelper:
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         self.open_contacts_page()
-        self.select_contact_by_index(index)
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
+#        self.select_contact_by_index(index)
         # open modification form
-        wd.find_element_by_css_selector("[title='Edit']").click()
+#        wd.find_element_by_css_selector("[title='Edit']").click()
 
     def return_to_home_page(self):
         wd = self.app.wd
